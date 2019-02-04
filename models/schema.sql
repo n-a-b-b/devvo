@@ -1,1 +1,15 @@
-CREATE DATABASE IF NOT EXISTS devvo;
+DROP DATABASE IF EXISTS devvo_db;
+
+CREATE DATABASE devvo_db;
+USE devvo_db;
+
+CREATE TABLE Users(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    First_Name VARCHAR NOT NULL (50),
+    Last_Name VARCHAR NOT NULL (50),
+    Email VARCHAR NOT NULL (50),
+    Plan VARCHAR NOT NULL (50),
+    
+    PRIMARY KEY (id)
+);
+
