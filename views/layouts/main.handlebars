@@ -5,11 +5,52 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <title>Home Page</title>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!--Theme color for browser tab-->
+  <meta name="theme-color" content="#eb2a23">
+  <!--Favicon-->
+  <link rel="icon" sizes="192x192" href="/img/devvo-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devvo</title>
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">
+      <img src="/img/devvo-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      Devvo
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <button id="signInButton" class="btn btn-warning text-dark justify-content-start align-items-center"><i class="googleIcon"></i>
+          Login with Google</button>
+      </span>
+    </div>
+  </nav>
+
   {{{body}}}
+
+  <footer class="mt-auto">
+    <div class="container">
+      <ul class="nav">
+        <li class="nav-item float-right">
+          a N.A.B.B.&reg; product
+        </li>
+      </ul>
+    </div>
+  </footer>
 </body>
 
 </html>
