@@ -1,66 +1,109 @@
+// Initialize Firebase
+const config = {
+  apiKey: "AIzaSyB0vzXxXH-zlCdeCgOomDUeRndfEqC-pxc",
+  authDomain: "devvo-73444.firebaseapp.com",
+  databaseURL: "https://devvo-73444.firebaseio.com",
+  projectId: "devvo-73444",
+  storageBucket: "",
+  messagingSenderId: "150079749719"
+};
+firebase.initializeApp(config);
+
 //Name that will be used for the authentication cookie
 const authenticationCookieName = "devvo-authentication";
 
 //function that sets cookie
 function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toGMTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 //getting the cookie
 function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+  const name = cname + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === " ") {
+      c = c.substring(1);
     }
-    return "";
-};
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
+function isAuthenticated() {
+  return getCookie(authenticationCookieName) ? true : false;
+}
+
+function getUserObject() {
+  return JSON.parse(getCookie(authenticationCookieName));
+}
 
 //function to check authentication cookie
 function checkAuthentication() {
-    var dopplegangerAuthentication = getCookie(authenticationCookieName)
-    if (dopplegangerAuthentication) {
 
-        //Hide the sign in button
-        $("#signInButton").hide();
+  //Hide the profile image for now
+  $("#profileImage").hide();
 
-        //Show the results link in the navbar
-        $("#resultsLink").show();
+  if (isAuthenticated()) {
+    //Get the user info from the cookie
+    const userInfo = getUserObject();
 
-        //Get the profile image url from the database
-        db.collection("users").where("email", "==", dopplegangerAuthentication)
-            .get()
-            .then(function (snapshot) {
+    //Hide the sign in button and home link
+    $("#signInButton").hide();
 
-                //User already exists in the database
-                if (snapshot && snapshot.docs && snapshot.docs.length > 0) {
+    //Redirect user to the calendar page
+    $("#navbar-brand").click();
 
-                    //Set the image source to the photo url from the fire database
-                    $(".yourImg").attr("src", snapshot.docs[0].data().photoURL);
-                    // enables the compare button
-                    $("#compareButton, #carouselCompareButton").attr("disabled", false);
-
-                    //Store the user's display name as an attribute on the signInButton element
-                    $("#signInButton").attr("data-user-display-name", snapshot.docs[0].data().displayName);
-
-                }
-            });
+    if (userInfo) {
+      $("#profileImage").show();
+      $("#profileImage").attr("src", userInfo.profileUrl);
     }
-    else {
-        //Show the sign in button
-        $("#signInButton").show();
-        //Hide the results link in the navbar
-        $("#resultsLink").hide();
-    }
-};
+  }
+  else {
+    //Show the sign in button
+    $("#signInButton").show();
+  }
+}
+
+
+//Google SignIn Authentication function
+function googleSignIn() {
+  const baseProvider = new firebase.auth.GoogleAuthProvider();
+
+  //Display google signin popup
+  firebase.auth().signInWithPopup(baseProvider).then(function (result) {
+
+    const userInfo = {
+      email: result.user.email,
+      name: result.user.displayName,
+      profileUrl: result.user.photoURL
+    };
+
+    //Create the authentication cookie. 
+    setCookie(authenticationCookieName, JSON.stringify(userInfo), 30);
+
+    //checkAuthentication function will hide or show sections and display profile picture depending on if user is logged in
+    checkAuthentication();
+
+    console.log("Success Google Account Linked");
+
+    //Send the POST request to create the customer if they do not already exist
+    $.ajax("api/users", {
+      type: "POST",
+      data: userInfo
+    }).then(function () {
+      //Reload the screen
+      window.location.reload();
+    });
+  }).catch(function (err) {
+    console.log(err);
+    console.log("Failed to connect");
+  });
+}
