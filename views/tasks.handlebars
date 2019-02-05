@@ -5,12 +5,12 @@
       <h2> This Week's Tasks {{currentWeekDay}}</h2>
 
     </div>
-    {{#each tasks}}
+    {{#each userTasks}}
     <div class="col-md-3 col-sm-12 mb-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{title}}</h5>
-          <div class="card-text">{{text}}</div>
+          <h5 class="card-title">{{Task.title}}</h5>
+          <div class="card-text">{{Task.text}}</div>
           <div class="text-center">
             <button class="btn btn-primary mt-4">Complete</button>
           </div>
@@ -23,3 +23,5 @@
   </div>
 </div>
 </div>
+
+<script src="/js/tasks.js"></script>
