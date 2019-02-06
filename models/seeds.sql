@@ -1,0 +1,4 @@
+INSERT INTO Task(title, `text`, links, CategoryId) VALUES("Employer Competitive", "Review Employer Ready Vs. Employer Competitive Handout", "<a href="https://drive.google.com/file/d/0BwhzeIUMYf1nV2JQcGdkU3ktcnFBLUZ4X09VSXliTUtJZWsw/view" target="_blank">Employer Ready Vs. Employer Competitive</a>", 1);
+INSERT INTO Task(title, `text`, links, CategoryId) VALUES("Brand Yourself", "Develop a short brand statement for yourself. Use this guide as a resource", "<a href="https://docs.google.com/document/d/1YbihkYmOu3boCu1j-myd6bVWE4l8CA6C4ka3cJ5opfk/edit" target="_blank">Brand Statement</a>", 2);
+INSERT INTO Task(title, `text`, links, CategoryId) VALUES("Elevator Pitch", "Develop a short brand statement for yourself. Use this guide as a resource", "<a href="https://docs.google.com/document/d/1YbihkYmOu3boCu1j-myd6bVWE4l8CA6C4ka3cJ5opfk/edit" target="_blank">Brand Statement</a>", 2);
+
