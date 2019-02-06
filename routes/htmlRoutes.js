@@ -39,6 +39,14 @@ module.exports = function (app) {
       });
   });
 
+  app.get("/tasks", function (req, res) {
+    db.Task.find({}).then(function (data) {
+      console.log(data);
+    })
+      .catch(function (err) {
+        console.log(err);
+      });
+  });
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");

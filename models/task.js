@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING, 
     text: DataTypes.STRING,
     links: DataTypes.STRING,
-    category: DataTypes.INTEGER
+    categoryId: DataTypes.INTEGER
   });
 
   Task.associate = function (models){
