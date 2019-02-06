@@ -11,42 +11,56 @@ module.exports = function (app) {
 
   app.get("/calendar/:email", function (req, res) {
 
-    db.User.findOne(
-      {
-        where: {
-          email: req.params.email
-        }
-      })
-      .then(function (dbUser) {
-        db.UserTask.findAll({
-          where: {
-            UserId: dbUser.id
-          },
-          include: [db.Task]
-        })
-          .then(function (dbUserTask) {
-            const userInfo = {
-              user: dbUser,
-              userTasks: dbUserTask
-            };
+    // db.User.findOne(
+    //   {
+    //     where: {
+    //       email: req.params.email
+    //     }
+    //   })
+    //   .then(function (dbUser) {
+    //     db.UserTask.findAll({
+    //       where: {
+    //         UserId: dbUser.id
+    //       },
+    //       include: [db.Task]
+    //     })
+    //       .then(function (dbUserTask) {
+    //         const userInfo = {
+    //           user: dbUser,
+    //           userTasks: dbUserTask
+    //         };
 
-            res.render("tasks", userInfo);
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        res.render("404");
-      });
+    //         res.render("tasks", userInfo);
+    //       });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     res.render("404");
+    //   });
   });
 
   app.get("/tasks", function (req, res) {
-    db.Task.find({}).then(function (data) {
+  //Amena's Code     
+    db.Task.findAll({
+      limit: 2
+    }).then(function (data) {
       console.log(data);
     })
       .catch(function (err) {
         console.log(err);
       });
   });
+  
+  //Noel's Code:
+    //   db.Task.find({}).then(function (data) {
+  //     console.log(data);
+  //   })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // });
+
+  
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");
