@@ -49,6 +49,15 @@ footer {
   border-radius: 20px;
 }
 
+/* progress bar*/
+.progress {
+  margin: 10px;
+
+}
+.progress-bar-danger {
+  background-color: #eb2a23 !important;
+}
+
 @media screen and (max-width: 576px) {
   .devvoHeader {
     background-position: center top;

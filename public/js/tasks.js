@@ -4,4 +4,17 @@ $(document).ready(function () {
   if (!isAuthenticated()) {
     window.location.href = "/";
   }
+
+
+  ///This code is a placeholder to be changed when schema is ready
+  $(function() {
+    var completed = setInterval(function () {
+      currentProgress = 60;
+      $("#dynamic")
+        .css("width", currentProgress + "%")
+        .attr("aria-valuenow", currentProgress)
+        .text(currentProgress + "%");
+
+    });
+  });
 });
