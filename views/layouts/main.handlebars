@@ -3,16 +3,19 @@
 
 <head>
   <meta charset="utf-8">
+  <title>Devvo</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <!--Theme color for browser tab-->
   <meta name="theme-color" content="#eb2a23">
   <!--Favicon-->
   <link rel="icon" sizes="192x192" href="/img/devvo-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devvo</title>
+  <!--Import jQuery and bootstrap-->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!--Add firebase-->
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 </head>
 
 <body>
@@ -29,13 +32,12 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li id="homeNavListItem" class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <span class="navbar-text">
-        <button id="signInButton" class="btn btn-warning text-dark justify-content-start align-items-center"><i class="googleIcon"></i>
-          Login with Google</button>
+        <img id="profileImage" src="/img/devvo-icon.png" width="40" height="40" alt="">
       </span>
     </div>
   </nav>
@@ -51,6 +53,10 @@
       </ul>
     </div>
   </footer>
+
+  <!--Import custom js-->
+  <script src="/js/authentication.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 
 </html>

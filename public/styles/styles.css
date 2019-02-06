@@ -45,6 +45,10 @@ footer {
   background-color: #f5f5f5;
 }
 
+#profileImage {
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 576px) {
   .devvoHeader {
     background-position: center top;
