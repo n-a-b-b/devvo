@@ -1,7 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
-  var Task = sequelize.define("Task", { 
+  var Task = sequelize.define("Task", {
+    title: DataTypes.STRING, 
     text: DataTypes.STRING,
-    links: DataTypes.STRING, 
+    links: DataTypes.STRING,
+    categoryId: DataTypes.INTEGER
   });
 
   Task.associate = function (models){
