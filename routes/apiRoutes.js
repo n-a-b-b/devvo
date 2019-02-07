@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Get all examples
-  app.get("/calendar/:email", function(req, res) {
+  app.get("api/calendar/:email", function(req, res) {
     // db.Task.findAll({
     //   limit: 2
     // }).then(function(tasks) {

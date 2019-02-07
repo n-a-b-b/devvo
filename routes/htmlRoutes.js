@@ -10,49 +10,32 @@ module.exports = function (app) {
   });
 
   app.get("/calendar/:email", function (req, res) {
+    console.log("got here");
 
-    // db.User.findOne(
-    //   {
-    //     where: {
-    //       email: req.params.email
-    //     }
-    //   })
-    //   .then(function (dbUser) {
-    //     db.UserTask.findAll({
-    //       where: {
-    //         UserId: dbUser.id
-    //       },
-    //       include: [db.Task]
-    //     })
-    //       .then(function (dbUserTask) {
-    //         const userInfo = {
-    //           user: dbUser,
-    //           userTasks: dbUserTask
-    //         };
-
-    //         res.render("tasks", userInfo);
-    //       });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     res.render("404");
-    //   });
-  });
-
-  app.get("/tasks", function (req, res) {
-  //Amena's Code     
-    db.Task.findAll({
-      limit: 2
-    }).then(function (data) {
-      console.log(data);
-    })
-      .catch(function (err) {
+    db.User.findOne(
+      {
+        where: {
+          email: req.params.email
+        },
+        include: [{
+          model: db.UserTask,
+          include: db.Task
+        }]
+      })
+      .then(function (dbUser) {
+        res.render("tasks", dbUser);
+      })
+      .catch(err => {
         console.log(err);
+        res.render("404");
       });
   });
-  
-  //Noel's Code:
-    //   db.Task.find({}).then(function (data) {
+
+  // app.get("/tasks", function (req, res) {
+  //   //Amena's Code     
+  //   db.Task.findAll({
+  //     limit: 2
+  //   }).then(function (data) {
   //     console.log(data);
   //   })
   //     .catch(function (err) {
@@ -60,7 +43,16 @@ module.exports = function (app) {
   //     });
   // });
 
-  
+  //Noel's Code:
+  //   db.Task.find({}).then(function (data) {
+  //     console.log(data);
+  //   })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // });
+
+
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");
