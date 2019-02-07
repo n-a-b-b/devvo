@@ -1,16 +1,19 @@
 module.exports = function(sequelize, DataTypes) {
   var Task = sequelize.define("Task", {
     title: DataTypes.STRING, 
-    text: DataTypes.STRING,
-    links: DataTypes.STRING,
-    categoryId: DataTypes.INTEGER
+    text: DataTypes.TEXT,
+    links: DataTypes.TEXT
   });
 
   Task.associate = function (models){
-    Task.hasMany(models.UserTask, {
-      onDelete: "cascade"
+    Task.belongsTo(models.Categories, {
+      foreignKey: {
+        allowNull: false
+      }
     });
   };
 
   return Task;
 };
+
+
