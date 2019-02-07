@@ -23,11 +23,23 @@ $(document).ready(function () {
       $.ajax(`api/users/${userInfo.email}`, {
         type: "PUT",
         data: updatedUser
-      }).then(function (userId) {
-        console.log(userId);
-        //Route the user to the calendar/tasks page
-        window.location.href = `calendar/${encodeURI(userInfo.email)}`;
-      });
+      })
+        .then(function () {
+
+          const newUserTask = {
+            userId: userInfo.userId
+          };
+
+          //Associate tasks to the user by using the userTasks api POST method
+          $.ajax("api/userTasks", {
+            type: "POST",
+            data: newUserTask
+          })
+            .then(function () {
+              //Route the user to the calendar/tasks page
+              window.location.href = `calendar/${encodeURI(userInfo.userId)}`;
+            });
+        });
     }
 
     this.classList.add("was-validated");
