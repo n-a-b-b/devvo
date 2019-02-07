@@ -31,26 +31,14 @@ module.exports = function (app) {
       });
   });
 
-  // app.get("/tasks", function (req, res) {
-  //   //Amena's Code     
-  //   db.Task.findAll({
-  //     limit: 2
-  //   }).then(function (data) {
-  //     console.log(data);
-  //   })
-  //     .catch(function (err) {
-  //       console.log(err);
-  //     });
-  // });
-
-  //Noel's Code:
-  //   db.Task.find({}).then(function (data) {
-  //     console.log(data);
-  //   })
-  //     .catch(function (err) {
-  //       console.log(err);
-  //     });
-  // });
+  app.get("/tasks", function (req, res) {
+    db.Task.find({}).then(function (data) {
+      console.log(data);
+    })
+      .catch(function (err) {
+        console.log(err);
+      });
+  });
 
 
   // Render 404 page for any unmatched routes
