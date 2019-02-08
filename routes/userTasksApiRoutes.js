@@ -43,20 +43,34 @@ module.exports = function (app) {
 
 
   });
-  //updating completed button boolean to true when clicked
-  app.post("/api/completeTask", function (req, res) {
-    console.log("task complete");
-    const taskComplete = req.body;
-    db.UserTask.update({ completed: true },
-      {
-        where: {
-          id: taskComplete.id
+  //update user task
+  app.put("/api/userTasks/:id", function (req, res) {
+
+    const updatedUserTask = {
+      completed: req.body.completed,
+      dateCompleted: req.body.dateCompleted
+    };
+
+    const options = {
+      where: {
+        id: req.params.id
+      }
+    };
+
+    db.UserTask.update(updatedUserTask, options)
+      .then(result => {
+        //If index 0 of the result object is 0 or less (no rows updated) 
+        //then return a 404 status else return a 200/success status
+        if (result[0] <= 0) {
+          res.status(404).send("No rows found to update!").end();
+        } else {
+          res.status(200).end();
         }
       })
-      .then(function (dbUserTasks) {
-        res.json(dbUserTasks);
+      .catch(err => {
+        //Log the error in the node console and return a 500 status
+        console.log(err);
+        res.status(500).send("Failed updating userTask in database");
       });
-
-
   });
 };
