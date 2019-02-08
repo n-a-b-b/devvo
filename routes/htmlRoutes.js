@@ -12,6 +12,7 @@ module.exports = function (app) {
 
   app.get("/calendar/:userId", function (req, res) {
 
+    //Select all user tasks that are not completed
     const options = {
       include: [{
         model: db.UserTask,
@@ -31,6 +32,13 @@ module.exports = function (app) {
       .then(function (dbUser) {
 
         if (dbUser && dbUser.UserTasks) {
+
+          //If the users skill level is beginner and there are still beginner tasks still to be completed then only return those tasks
+          const beginnerTasks = dbUser.UserTasks.filter(userTask => userTask.Task.CategoryId === 5);
+          if (dbUser.skillLevel === "Beginner" && beginnerTasks && beginnerTasks.length > 0) {
+            dbUser.UserTasks = beginnerTasks;
+          }
+
           //Limit the user task results to the first 6
           dbUser.UserTasks.splice(6);
         }
