@@ -92,7 +92,7 @@ module.exports = [{
   id: 15,
   title: "Interview Prep-Behavioral",
   text: "Use these videos on how to prepare for a behavioral interview.",
-  links: `<a href="https://www.youtube.com/watch?v=mH3DaeJSwy4" target="_blank">Behavioral Interview Questions</a><a href="https://www.youtube.com/watch?v=qKBubKO-798" target="_blank">The Behavioral Interview</a>`,
+  links: `<a href="https://www.youtube.com/watch?v=mH3DaeJSwy4" target="_blank">Behavioral Interview Questions</a><br><a href="https://www.youtube.com/watch?v=qKBubKO-798" target="_blank">The Behavioral Interview</a>`,
   CategoryId: 4
 }, {
   id: 16,
@@ -116,7 +116,7 @@ module.exports = [{
   id: 19,
   title: "Review Your Resume",
   text: "Use these resources to review your resume to be employer competitive.",
-  links: `<a href="https://docs.google.com/document/d/1pyHgv7_7OfKODBLhLV_TQZDmjwTiWdfZi50xSyrajDc/edit" target="_blank">Mock Interview Events</a><a href="https://docs.google.com/document/d/1wJ8_Min4A5ycjLzC2u1_T0m7qrnFwj7ybpnfuUUs5GE/edit" target="_blank">Mock Interview Events</a>`,
+  links: `<a href="https://docs.google.com/document/d/1pyHgv7_7OfKODBLhLV_TQZDmjwTiWdfZi50xSyrajDc/edit" target="_blank">Mock Interview Events</a> <br> <a href="https://docs.google.com/document/d/1wJ8_Min4A5ycjLzC2u1_T0m7qrnFwj7ybpnfuUUs5GE/edit" target="_blank">Mock Interview Events</a>`,
   CategoryId: 4
 }, {
   id: 20,
