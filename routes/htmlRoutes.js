@@ -51,6 +51,9 @@ module.exports = function (app) {
       });
   });
 
+  app.get("/successboard", function (req, res) {
+    res.render("successboard");
+  });
 
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
