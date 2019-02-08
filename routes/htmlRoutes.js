@@ -43,15 +43,6 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/tasks", function (req, res) {
-    db.Task.find({}).then(function (data) {
-      console.log(data);
-    })
-      .catch(function (err) {
-        console.log(err);
-      });
-  });
-
   app.get("/successboard", function (req, res) {
     res.render("successboard");
   });
