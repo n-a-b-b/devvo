@@ -52,7 +52,7 @@ module.exports = function (app) {
   });
 
   app.get("/successboard", function (req, res) {
-    res.render("successboard");
+    res.render("successBoard");
   });
 
   // Render 404 page for any unmatched routes
