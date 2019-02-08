@@ -26,10 +26,14 @@ getTasks();
 
 $(document).on("click", ".complete", function () {
   // call the database update to complete
-  var taskId = $(this).attr("data-id");
-  alert(taskId);
-  // call api to update record
-  // $.post('/updateTask', {taskId: taskId}, function(data){})
+
+  //userTaskId is connected to data id of button
+  var userTaskId = $(this).attr("data-id");
+  alert(userTaskId);
+  
+  $.post("/api/completeTask", {id: userTaskId});
+
+
   currentProgress += taskPercent;
   updateProgressBar();
 });
@@ -40,3 +44,5 @@ function updateProgressBar() {
     .attr("aria-valuenow", currentProgress)
     .text(currentProgress + "%");
 }
+
+

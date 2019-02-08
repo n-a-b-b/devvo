@@ -39,4 +39,20 @@ module.exports = function (app) {
 
 
   });
+//updating completed button boolean to true when clicked
+  app.post("/api/completeTask", function(req, res) {
+    console.log("task complete");
+    const taskComplete = req.body;
+    db.UserTask.update({completed: true},
+      {
+        where: {
+          id: taskComplete.id
+        }
+      })
+      .then(function(dbUserTasks){
+        res.json(dbUserTasks);
+      });
+
+  
+  });
 };
