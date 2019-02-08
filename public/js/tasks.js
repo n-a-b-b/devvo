@@ -51,13 +51,23 @@ $(document).on("click", ".complete", function () {
   //userTaskId is connected to data id of button
   var userTaskId = $(this).attr("data-id");
 
+  const updatedUserTask = {
+    completed: 1,
+    dateCompleted: new Date()
+  };
 
-  $.post("/api/completeTask", { id: userTaskId });
+  //Send a put request to the api server to update the user task
+  $.ajax(`/api/userTasks/${userTaskId}`, {
+    type: "PUT",
+    data: updatedUserTask
+  })
+    .then(function () {
+      //Update the progress bar
+      updateProgressBar();
 
-  updateProgressBar();
-
-  //reloads the page on click
-  location.reload();
+      //reloads the page on click
+      location.reload();
+    }); 
 });
 
 function updateProgressBar() {
