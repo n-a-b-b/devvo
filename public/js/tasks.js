@@ -5,16 +5,38 @@ $(document).ready(function () {
     window.location.href = "/";
   }
 
-
-  ///This code is a placeholder to be changed when schema is ready
-  $(function() {
-    var completed = setInterval(function () {
-      currentProgress = 60;
-      $("#dynamic")
-        .css("width", currentProgress + "%")
-        .attr("aria-valuenow", currentProgress)
-        .text(currentProgress + "%");
-
-    });
-  });
 });
+var currentProgress = 0;
+var taskPercent = 10;
+
+function calculateTaskPercent() {
+  // how ever many task need to equal  - 100%
+  // set taskPercent
+}
+
+function getTasks() {
+  $.get("/api/userTasks", function (data) {
+    var numberOfTasks = data.length;
+    taskPercent = 100 / numberOfTasks;
+  })
+}
+
+getTasks();
+
+
+$(document).on("click", ".complete", function () {
+  // call the database update to complete
+  var taskId = $(this).attr("data-id");
+  alert(taskId);
+  // call api to update record
+  // $.post('/updateTask', {taskId: taskId}, function(data){})
+  currentProgress += taskPercent;
+  updateProgressBar();
+});
+
+function updateProgressBar() {
+  $("#dynamic")
+    .css("width", currentProgress + "%")
+    .attr("aria-valuenow", currentProgress)
+    .text(currentProgress + "%");
+}

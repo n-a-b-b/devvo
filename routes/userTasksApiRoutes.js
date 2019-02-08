@@ -1,7 +1,13 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
+  app.get("/api/userTasks", function(req, res){
+    console.log("----- user tasks -------")
+    db.UserTask.findAll().then(function(tasks){
+      res.send(tasks);
+    });
+  });
+  
   // Create a user tasks for a specific user id
   app.post("/api/userTasks", function (req, res) {
     const userId = req.body.userId;
