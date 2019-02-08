@@ -1,7 +1,5 @@
 
 let currentProgress = 0;
-let taskPercent = 0;
-
 
 
 $(document).ready(function () {
@@ -20,10 +18,28 @@ function getTasks() {
   //using template literal to grab user id from userObject authentication cookie information
   let userObject = getUserObject();
   $.get(`/api/userTasks/${userObject.userId}`, function (data) {
-    console.log(data);
-    let numberOfTasks = data.length;
-    taskPercent = Math.round(100/numberOfTasks);
-    
+    // console.log(data);
+    let userCompletedCount = 0;
+    let totalCount = 0;
+
+
+    //iterating through all rows, if completed, adds to completed count
+    for (var i = 0; i < data.length; i++) {
+
+      if (data[i].completed) {
+        userCompletedCount += 1;
+      }
+      totalCount++;
+    }
+
+
+    //Divides total tasks for user by tasks the user has completed, then rounds to whole number
+    currentProgress = Math.round((userCompletedCount / totalCount) * 100);
+
+    console.log(currentProgress);
+    console.log(totalCount);
+    console.log(userCompletedCount);
+    updateProgressBar();
   });
 }
 
@@ -34,15 +50,14 @@ $(document).on("click", ".complete", function () {
 
   //userTaskId is connected to data id of button
   var userTaskId = $(this).attr("data-id");
-  alert(userTaskId);
 
 
+  $.post("/api/completeTask", { id: userTaskId });
 
-  $.post("/api/completeTask", {id: userTaskId});
-
-
-  currentProgress += taskPercent;
   updateProgressBar();
+
+  //reloads the page on click
+  location.reload();
 });
 
 function updateProgressBar() {
