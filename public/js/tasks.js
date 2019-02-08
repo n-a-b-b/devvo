@@ -7,20 +7,20 @@ $(document).ready(function () {
 
 });
 var currentProgress = 0;
-var taskPercent = 10;
+var taskPercent = 0;
 
-function calculateTaskPercent() {
-  // how ever many task need to equal  - 100%
-  // set taskPercent
-}
+// function calculateTaskPercent() {
+//   // how ever many task need to equal  - 100%
+//   // set taskPercent
+// }
 
 function getTasks() {
   $.get("/api/userTasks", function (data) {
     var numberOfTasks = data.length;
-    taskPercent = 100 / numberOfTasks;
-  })
+    taskPercent = Math.round(100/numberOfTasks);
+    
+  });
 }
-
 getTasks();
 
 
