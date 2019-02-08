@@ -1,8 +1,8 @@
 module.exports = [{
   id: -100,
   title: "Learn the Code",
-  text: "Learn how to code in the language you want to interview for. Below are som suggested sites.",
-  links: `<a href="https://bootcamp.northwestern.edu/coding/" target="_blank">Northwestern Coding Bootcamp</a><br/><a href="https://www.udemy.com/" target="_blank">Udemy</a><br/><a href="https://www.codecademy.com/" target="_blank">Code Academy</a>`,
+  text: "Learn how to code in the language you want to interview for. Below are some suggested sites.",
+  links: `<a href="https://bootcamp.northwestern.edu/coding/" target="_blank">NW Coding Bootcamp</a><br/><a href="https://www.udemy.com/" target="_blank">Udemy</a><br/><a href="https://www.codecademy.com/" target="_blank">Code Academy</a>`,
   CategoryId: 5
 }, {
   id: 1,
