@@ -1,13 +1,13 @@
 var db = require("../models");
 
 module.exports = function (app) {
-  app.get("/api/userTasks/:id", function(req, res){
+  app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
-    db.UserTask.findAll().then(function(tasks){
+    db.UserTask.findAll().then(function (tasks) {
       res.send(tasks);
     });
   });
-  
+
   // Create a user tasks for a specific user id
   app.post("/api/userTasks/", function (req, res) {
     const userId = req.body.userId;
@@ -23,7 +23,8 @@ module.exports = function (app) {
 
           const userTask = {
             UserId: userId,
-            TaskId: task.id
+            TaskId: task.id,
+            completed: task.completed
           };
 
           newUserTasks.push(userTask);
@@ -33,7 +34,7 @@ module.exports = function (app) {
         db.UserTask.bulkCreate(newUserTasks)
           .then(function (dbUserTasks) {
             res.json(dbUserTasks);
-          });        
+          });
       });
 
 
