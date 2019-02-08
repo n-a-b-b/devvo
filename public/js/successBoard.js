@@ -87,13 +87,28 @@ const pie1 = new Chart(document.getElementById("my-chart-pie1"), {
     datasets: [{
       label: "Networking",
       backgroundColor: ["#3e95cd", "#8e5ea2"],
-      data: [27, 83]
+      data: [21, 67]
     }]
   },
   options: {
     title: {
       display: true,
       text: 'Networking'
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem, data) {
+          var dataset = data.datasets[tooltipItem.datasetIndex];
+          var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+          var total = meta.total;
+          var currentValue = dataset.data[tooltipItem.index];
+          var percentage = parseFloat((currentValue/total*100).toFixed(1));
+          return currentValue + " (" + percentage + "%)";
+        },
+        title: function(tooltipItem, data) {
+          return data.labels[tooltipItem[0].index];
+        }
+      }
     }
   }
 });
@@ -106,13 +121,28 @@ new Chart(document.getElementById("my-chart-pie2"), {
     datasets: [{
       label: "Coding Exercises",
       backgroundColor: ["#3e95cd", "#8e5ea2"],
-      data: [40, 60]
+      data: [23, 55]
     }]
   },
   options: {
     title: {
       display: true,
       text: 'Coding Exercises'
+    },
+    tooltips:{
+      callbacks: {
+        label: function(tooltipItem, data) {
+          var dataset = data.datasets[tooltipItem.datasetIndex];
+          var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+          var total = meta.total;
+          var currentValue = dataset.data[tooltipItem.index];
+          var percentage = parseFloat((currentValue/total*100).toFixed(1));
+          return currentValue + " (" + percentage + "%)";
+        },
+        title: function(tooltipItem, data) {
+          return data.labels[tooltipItem[0].index];
+        }
+      }
     }
   }
 });
@@ -123,15 +153,31 @@ new Chart(document.getElementById("my-chart-pie3"), {
     datasets: [{
       label: "Articles",
       backgroundColor: ["#3e95cd", "#8e5ea2"],
-      data: [13, 87]
+      data: [13, 48]
     }]
   },
   options: {
     title: {
       display: true,
       text: 'Articles'
+    }, 
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem, data) {
+          var dataset = data.datasets[tooltipItem.datasetIndex];
+          var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+          var total = meta.total;
+          var currentValue = dataset.data[tooltipItem.index];
+          var percentage = parseFloat((currentValue/total*100).toFixed(1));
+          return currentValue + " (" + percentage + "%)";
+        },
+        title: function(tooltipItem, data) {
+          return data.labels[tooltipItem[0].index];
+        }
+      }
     }
-  }
+  },
+ 
 });
 new Chart(document.getElementById("my-chart-pie4"), {
   type: 'pie',
@@ -140,13 +186,29 @@ new Chart(document.getElementById("my-chart-pie4"), {
     datasets: [{
       label: "Videos",
       backgroundColor: ["#3e95cd", "#8e5ea2"],
-      data: [37, 63]
+      data: [39, 75]
     }]
   },
   options: {
     title: {
       display: true,
       text: 'Videos'
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem, data) {
+          var dataset = data.datasets[tooltipItem.datasetIndex];
+          var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+          var total = meta.total;
+          var currentValue = dataset.data[tooltipItem.index];
+          var percentage = parseFloat((currentValue/total*100).toFixed(1));
+          return currentValue + " (" + percentage + "%)";
+        },
+        title: function(tooltipItem, data) {
+          return data.labels[tooltipItem[0].index];
+        }
+      }
     }
-  }
+  },
+ 
 });
