@@ -3,7 +3,11 @@ var db = require("../models");
 module.exports = function (app) {
   app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
-    db.UserTask.findAll().then(function (tasks) {
+    db.UserTask.findAll({
+      where: {
+        userId: req.params.id
+      }
+    }).then(function (tasks) {
       res.send(tasks);
     });
   });
@@ -39,20 +43,20 @@ module.exports = function (app) {
 
 
   });
-//updating completed button boolean to true when clicked
-  app.post("/api/completeTask", function(req, res) {
+  //updating completed button boolean to true when clicked
+  app.post("/api/completeTask", function (req, res) {
     console.log("task complete");
     const taskComplete = req.body;
-    db.UserTask.update({completed: true},
+    db.UserTask.update({ completed: true },
       {
         where: {
           id: taskComplete.id
         }
       })
-      .then(function(dbUserTasks){
+      .then(function (dbUserTasks) {
         res.json(dbUserTasks);
       });
 
-  
+
   });
 };

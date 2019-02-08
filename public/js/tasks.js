@@ -20,6 +20,7 @@ function getTasks() {
   //using template literal to grab user id from userObject authentication cookie information
   let userObject = getUserObject();
   $.get(`/api/userTasks/${userObject.userId}`, function (data) {
+    console.log(data);
     let numberOfTasks = data.length;
     taskPercent = Math.round(100/numberOfTasks);
     
