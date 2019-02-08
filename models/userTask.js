@@ -1,11 +1,14 @@
-module.exports = function(sequelize, DataTypes) {
-  var UserTask = sequelize.define("UserTask", { 
-    completed: DataTypes.BOOLEAN,
-    dateDue: DataTypes.DATE, 
+module.exports = function (sequelize, DataTypes) {
+  var UserTask = sequelize.define("UserTask", {
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false 
+    },
+    dateDue: DataTypes.DATE,
     dateCompleted: DataTypes.DATE
   });
-  
-  UserTask.associate = function (models){
+
+  UserTask.associate = function (models) {
     UserTask.belongsTo(models.Task, {
       foreignKey: {
         allowNull: false
