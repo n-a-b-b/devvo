@@ -31,10 +31,6 @@ body {
   margin-right: 6px;
 }
 
-#signInButton {
-  display: flex;
-}
-
 footer {
   position: absolute;
   bottom: 0;
@@ -62,4 +58,9 @@ footer {
   .devvoHeader {
     background-position: center top;
   }
+}
+
+#successboard-title {
+  font-size: 40px;
+  font-stretch: expanded;
 }

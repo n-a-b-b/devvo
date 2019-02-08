@@ -16,11 +16,11 @@ $(document).ready(function () {
       type: "GET"
     }).then(function (result) {
       if (!result.skillLevel || result.skillLevel.trim().length === 0) {
-        //Route the user to the home page so they can select a skill level
-        window.location.href = "home";
+        //Route the user to the skill Level page so they can select a skill level
+        window.location.href = "skillLevel";
       } else {
         //Route the user to the calendar/tasks page
-        window.location.href = `calendar/${encodeURI(userInfo.email)}`;
+        window.location.href = `calendar/${encodeURI(userInfo.userId)}`;
       }
     });    
   }

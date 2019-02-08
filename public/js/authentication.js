@@ -37,12 +37,21 @@ function getCookie(cname) {
   return "";
 }
 
+function deleteCookie (name) {
+  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
 function isAuthenticated() {
-  return getCookie(authenticationCookieName) ? true : false;
+  const cookie = getCookie(authenticationCookieName);
+  return (cookie && cookie !== "undefined") ? true : false;
 }
 
 function getUserObject() {
   return JSON.parse(getCookie(authenticationCookieName));
+}
+
+function setCookieUserObject(userInfo) {
+  setCookie(authenticationCookieName, JSON.stringify(userInfo), 30);
 }
 
 //function to check authentication cookie
@@ -98,7 +107,12 @@ function googleSignIn() {
     $.ajax("api/users", {
       type: "POST",
       data: userInfo
-    }).then(function () {
+    }).then(function (userId) {
+
+      //Set the userid in the user id in the cookie
+      userInfo.userId = userId;
+      setCookieUserObject(userInfo);
+
       //Reload the screen
       window.location.reload();
     });
