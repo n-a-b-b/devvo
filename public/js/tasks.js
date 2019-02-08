@@ -1,27 +1,31 @@
+
+let currentProgress = 0;
+let taskPercent = 0;
+
+
+
 $(document).ready(function () {
 
   //If the user is not authenticated then redirect to the login page
   if (!isAuthenticated()) {
     window.location.href = "/";
   }
+  getTasks();
+  updateProgressBar();
 
 });
-var currentProgress = 0;
-var taskPercent = 0;
 
-// function calculateTaskPercent() {
-//   // how ever many task need to equal  - 100%
-//   // set taskPercent
-// }
 
 function getTasks() {
-  $.get("/api/userTasks", function (data) {
-    var numberOfTasks = data.length;
+  //using template literal to grab user id from userObject authentication cookie information
+  let userObject = getUserObject();
+  $.get(`/api/userTasks/${userObject.userId}`, function (data) {
+    let numberOfTasks = data.length;
     taskPercent = Math.round(100/numberOfTasks);
     
   });
 }
-getTasks();
+
 
 
 $(document).on("click", ".complete", function () {
@@ -30,7 +34,9 @@ $(document).on("click", ".complete", function () {
   //userTaskId is connected to data id of button
   var userTaskId = $(this).attr("data-id");
   alert(userTaskId);
-  
+
+
+
   $.post("/api/completeTask", {id: userTaskId});
 
 
