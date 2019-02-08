@@ -43,6 +43,7 @@ footer {
 
 #profileImage {
   border-radius: 20px;
+  cursor: pointer;
 }
 
 /* progress bar*/
