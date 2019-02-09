@@ -1,6 +1,12 @@
+const sound = document.createElement("audio");
 
+
+sound.src = "/audio/devoyeah.mp3";
+sound.volume = 1;
+sound.autoPlay = false;
+sound.preLoad = true;
+sound.controls = true;
 let currentProgress = 0;
-
 
 $(document).ready(function () {
 
@@ -12,7 +18,6 @@ $(document).ready(function () {
   updateProgressBar();
 
 });
-
 
 function getTasks() {
   //using template literal to grab user id from userObject authentication cookie information
@@ -36,13 +41,12 @@ function getTasks() {
     //Divides total tasks for user by tasks the user has completed, then rounds to whole number
     currentProgress = Math.round((userCompletedCount / totalCount) * 100);
 
-    console.log(currentProgress);
-    console.log(totalCount);
-    console.log(userCompletedCount);
+    // console.log(currentProgress);
+    // console.log(totalCount);
+    // console.log(userCompletedCount);
     updateProgressBar();
   });
 }
-
 
 
 $(document).on("click", ".complete", function () {
@@ -56,6 +60,7 @@ $(document).on("click", ".complete", function () {
     dateCompleted: new Date()
   };
 
+
   //Send a put request to the api server to update the user task
   $.ajax(`/api/userTasks/${userTaskId}`, {
     type: "PUT",
@@ -65,9 +70,22 @@ $(document).on("click", ".complete", function () {
       //Update the progress bar
       updateProgressBar();
 
-      //reloads the page on click
-      location.reload();
-    }); 
+
+      let playPromise = sound.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          //allows succesful click song to finish before advancing
+          setTimeout(location.reload.bind(location), 4000);
+        })
+          .catch(error => {
+            // if error, skip music wait time
+            location.reload();
+          });
+      }
+
+
+    });
 });
 
 function updateProgressBar() {
