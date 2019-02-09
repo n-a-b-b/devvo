@@ -51,6 +51,11 @@ footer {
   margin: 10px;
 
 }
+
+.taskCard {
+  height: 100%;
+}
+
 .progress-bar-danger {
   background-color: #ffc107 !important;
 } 
