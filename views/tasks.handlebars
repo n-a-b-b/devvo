@@ -13,7 +13,7 @@
       <div class="row">
         {{#each UserTasks}}
         {{#unless completed}}
-        <div class="col-md-4 col-sm-12 mb-3">
+        <div class="col-md-4 col-sm-12 mb-3" id="userTaskCard{{id}}">
           <div class="card taskCard">
             <div class="card-header bg-dark text-white">
               <h5 class="card-title">{{Task.title}}</h5>
@@ -23,7 +23,7 @@
               <div class="card-text">{{{Task.links}}}</div>
             </div>
             <div class="card-footer text-center">
-              <button data-id={{id}} class="btn btn-warning btn-block hvr-pulse-grow mt-4 complete">Complete</button>
+              <button data-id="{{id}}" data-associated-card="userTaskCard{{id}}" class="btn btn-warning btn-block hvr-pulse-grow mt-4 complete">Complete</button>
             </div>
           </div>
         </div>

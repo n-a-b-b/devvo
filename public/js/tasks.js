@@ -57,7 +57,7 @@ function getTasks() {
 }
 
 
-$(document).on("click", ".complete", function () {
+$(document).on("click", ".complete", function (event) {
   // call the database update to complete
 
   //userTaskId is connected to data id of button
@@ -75,14 +75,20 @@ $(document).on("click", ".complete", function () {
     data: updatedUserTask
   })
     .then(function () {
-      //Update the progress bar
-      updateProgressBar();
 
-      //Set local storage variable to let page know to play sound on refresh
-      localStorage.setItem("playCompleteSound", 1);
+      //Card associated with button
+      const associatedCard = $(event.target).data("associated-card");
 
-      //Reload the page
-      location.reload();
+      $(`#${associatedCard}`).hide("slow", function () {
+        //Update the progress bar
+        updateProgressBar();
+
+        //Set local storage variable to let page know to play sound on refresh
+        localStorage.setItem("playCompleteSound", 1);
+
+        //Reload the page
+        location.reload();
+      });
     });
 });
 
