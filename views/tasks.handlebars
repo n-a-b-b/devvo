@@ -7,17 +7,17 @@
     </div>
 
     <div class="col-sm-12 col-md-9">
-      <div class="row">
+      <div class="row equal">
         {{#each UserTasks}}
         {{#unless completed}}
-        <div class="col-md-4 col-sm-12 mb-3">
+        <div class="col-md-4 d-flex col-sm-12 mb-3">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{Task.title}}</h5>
               <div class="card-text">{{Task.text}}</div>
               <div class="card-text">{{{Task.links}}}</div>
-              <div class="text-center">
-                <button data-id={{id}}  class="btn btn-danger mt-4 complete">Complete</button>
+              <div class="text-center mt-auto">
+                <button data-id={{id}} class="btn btn-warning mt-4 btn-block text-truncate complete">Complete</button>
               </div>
             </div>
           </div>
