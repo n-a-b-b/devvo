@@ -13,10 +13,18 @@ $(document).ready(function () {
   //If the user is not authenticated then redirect to the login page
   if (!isAuthenticated()) {
     window.location.href = "/";
+    return;
   }
   getTasks();
   updateProgressBar();
 
+  //If playCompleteSound local storage variable is set to trun then play the completed sound
+  const playCompletedSound = localStorage.getItem("playCompleteSound");
+
+  if (playCompletedSound) {
+    localStorage.removeItem("playCompleteSound");
+    sound.play();
+  }
 });
 
 function getTasks() {
@@ -49,7 +57,7 @@ function getTasks() {
 }
 
 
-$(document).on("click", ".complete", function () {
+$(document).on("click", ".complete", function (event) {
   // call the database update to complete
 
   //userTaskId is connected to data id of button
@@ -67,24 +75,20 @@ $(document).on("click", ".complete", function () {
     data: updatedUserTask
   })
     .then(function () {
-      //Update the progress bar
-      updateProgressBar();
 
+      //Card associated with button
+      const associatedCard = $(event.target).data("associated-card");
 
-      let playPromise = sound.play();
+      $(`#${associatedCard}`).hide("slow", function () {
+        //Update the progress bar
+        updateProgressBar();
 
-      if (playPromise !== undefined) {
-        playPromise.then(_ => {
-          //allows succesful click song to finish before advancing
-          setTimeout(location.reload.bind(location), 4000);
-        })
-          .catch(error => {
-            // if error, skip music wait time
-            location.reload();
-          });
-      }
+        //Set local storage variable to let page know to play sound on refresh
+        localStorage.setItem("playCompleteSound", 1);
 
-
+        //Reload the page
+        location.reload();
+      });
     });
 });
 
