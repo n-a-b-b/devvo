@@ -13,10 +13,18 @@ $(document).ready(function () {
   //If the user is not authenticated then redirect to the login page
   if (!isAuthenticated()) {
     window.location.href = "/";
+    return;
   }
   getTasks();
   updateProgressBar();
 
+  //If playCompleteSound local storage variable is set to trun then play the completed sound
+  const playCompletedSound = localStorage.getItem("playCompleteSound");
+
+  if (playCompletedSound) {
+    localStorage.removeItem("playCompleteSound");
+    sound.play();
+  }
 });
 
 function getTasks() {
@@ -70,21 +78,11 @@ $(document).on("click", ".complete", function () {
       //Update the progress bar
       updateProgressBar();
 
+      //Set local storage variable to let page know to play sound on refresh
+      localStorage.setItem("playCompleteSound", 1);
 
-      let playPromise = sound.play();
-
-      if (playPromise !== undefined) {
-        playPromise.then(_ => {
-          //allows succesful click song to finish before advancing
-          setTimeout(location.reload.bind(location), 4000);
-        })
-          .catch(error => {
-            // if error, skip music wait time
-            location.reload();
-          });
-      }
-
-
+      //Reload the page
+      location.reload();
     });
 });
 
