@@ -1,6 +1,8 @@
 const sound = document.createElement("audio");
 
 
+
+
 sound.src = "/audio/devoyeah.mp3";
 sound.volume = 1;
 sound.autoPlay = false;
@@ -30,30 +32,33 @@ $(document).ready(function () {
 function getTasks() {
   //using template literal to grab user id from userObject authentication cookie information
   let userObject = getUserObject();
-  $.get(`/api/userTasks/${userObject.userId}`, function (data) {
-    // console.log(data);
-    let userCompletedCount = 0;
-    let totalCount = 0;
+  $.get(`/api/userTasks/${userObject.userId}`,
+
+    function (data) {
+      // console.log(data);
+      let userCompletedCount = 0;
+      let totalCount = 0;
+      console.log(data);
 
 
-    //iterating through all rows, if completed, adds to completed count
-    for (var i = 0; i < data.length; i++) {
+      //iterating through all rows, if completed, adds to completed count
+      for (var i = 0; i < data.length; i++) {
 
-      if (data[i].completed) {
-        userCompletedCount += 1;
+        if (data[i].completed) {
+          userCompletedCount += 1;
+        }
+        totalCount++;
       }
-      totalCount++;
-    }
 
 
-    //Divides total tasks for user by tasks the user has completed, then rounds to whole number
-    currentProgress = Math.round((userCompletedCount / totalCount) * 100);
+      //Divides total tasks for user by tasks the user has completed, then rounds to whole number
+      currentProgress = Math.round((userCompletedCount / totalCount) * 100);
 
-    // console.log(currentProgress);
-    // console.log(totalCount);
-    // console.log(userCompletedCount);
-    updateProgressBar();
-  });
+      // console.log(currentProgress);
+      // console.log(totalCount);
+      // console.log(userCompletedCount);
+      updateProgressBar();
+    });
 }
 
 
@@ -93,10 +98,13 @@ $(document).on("click", ".complete", function (event) {
 });
 
 function updateProgressBar() {
-  $("#dynamic")
-    .css("width", currentProgress + "%")
-    .attr("aria-valuenow", currentProgress)
-    .text(currentProgress + "%");
+
+
+  $(".ldBar")
+    .attr("data-value", currentProgress);
 }
+
+
+
 
 
