@@ -5,3 +5,16 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
+.taskCard {
+    height: 100%;
+  }
+  
+  .card-header {
+    min-height: 83px;
+  }
+  
+  .card-footer {
+    background-color: unset !important;
+    border-top: unset !important;
+  }

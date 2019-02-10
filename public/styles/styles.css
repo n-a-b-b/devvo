@@ -6,12 +6,6 @@ html {
 body {
   margin-bottom: 80px;
   font-family: 'Play', sans-serif;
-  background: url('../img/coding-background-image-9.jpg') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
 }
 
 .list-group-item {
@@ -53,47 +47,10 @@ footer {
   cursor: pointer;
 }
 
-.taskCard {
-  height: 100%;
-}
-
-.card-header {
-  min-height: 83px;
-}
-
-.card-footer {
-  background-color: unset !important;
-  border-top: unset !important;
-}
-
 @media screen and (max-width: 576px) {
   .devvoHeader {
     background-position: center top;
   }
-}
-
-#successboard-title {
-  font-size: 40px;
-  font-stretch: expanded;
-  color: white;
-}
-
-.right-panel {
-  background-color: white;
-}
-
-#my-chart-bar {
-  background-color: white;
-}
-
-/* Contact Us page */
-
-.emailBody {
-  height: 200px;
-}
-
-h1 {
-  color: white;
 }
 
 @-webkit-keyframes hvr-pulse-grow {
