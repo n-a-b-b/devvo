@@ -4,6 +4,9 @@ $(document).ready(function () {
   if (location.pathname.toLowerCase() === "/successboard") {
     $("#sbNavListItem").addClass("active");
     $(".nav-item:not(#sbNavListItem)").removeClass("active");
+  } else if (location.pathname.toLowerCase() === "/email") {
+    $("#contactUsNavListItem").addClass("active");
+    $(".nav-item:not(#contactUsNavListItem)").removeClass("active");
   } else {
     $("#homeNavListItem").addClass("active");
     $(".nav-item:not(#homeNavListItem)").removeClass("active");

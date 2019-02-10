@@ -71,6 +71,10 @@ footer {
   font-stretch: expanded;
 }
 
+.emailBody {
+  height: 200px;
+}
+
 @-webkit-keyframes hvr-pulse-grow {
   to {
     -webkit-transform: scale(1.1);
