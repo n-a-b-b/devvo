@@ -87,54 +87,100 @@ $(document).ready(function () {
   });
 
   //PIE CHARTS-SUCCESS PER CATEGORY
-  const pie1 = new Chart(document.getElementById("my-chart-pie1"), {
-    type: 'pie',
-    data: {
-      labels: ["Completed", "Incomplete"],
-      datasets: [{
-        label: "Networking",
-        backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [21, 67]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Networking'
-      },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-            var total = meta.total;
-            var currentValue = dataset.data[tooltipItem.index];
-            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-            return currentValue + " (" + percentage + "%)";
-          },
-          title: function (tooltipItem, data) {
-            return data.labels[tooltipItem[0].index];
-          }
+  //Retrieve the current data from db
+
+  let userObject = getUserObject();
+  let completedNetworking = 0;
+  let incompleteNetworking = 0;
+  let completedCoding= 0;
+  let incompleteCoding= 0;
+  let completedArticles= 0;
+  let incompleteArticles=0;
+  let completedVideos=0;
+  let incompleteVideos=0;
+  let networkingArr = [];
+  let codingArr = [];
+  let articlesArr = [];
+  let videosArr = [];
+
+  $.get(`/api/userTasks/${userObject.userId}`, function (data) {
+    // console.log(data);
+    // console.log(data[0].completed);
+    for(let i = 0; i<data.length; i++){
+      // console.log(data.length);
+      // console.log(data[i].Task.CategoryId);
+      if(data[i].Task.CategoryId === 1){
+        if(data[i].completed=== true){
+          completedNetworking++;
+        }else{
+          
+          incompleteNetworking++;
+        }
+      }
+      if(data[i].Task.CategoryId === 2){
+        if(data[i].completed=== true){
+          
+          completedCoding++;
+        }else{
+         
+          incompleteCoding++;
+        }
+      }
+      if(data[i].Task.CategoryId === 3){
+        if(data[i].completed=== true){
+          completedArticles++;
+        }else{
+          incompleteArticles++;
+        }
+      }
+      if(data[i].Task.CategoryId === 4){
+        if(data[i].completed=== true){
+          completedVideos++;
+        }else{
+          incompleteVideos++;
         }
       }
     }
-  });
 
-  // document.getElementById("#legend").innerHTML = pie1.generateLegend();
-  new Chart(document.getElementById("my-chart-pie2"), {
-    type: 'pie',
+    console.log("C1=" + completedNetworking);
+    console.log(typeof(completedNetworking));
+    console.log("IC1=" + incompleteNetworking);
+    console.log("C2=" + completedCoding);
+    console.log("IC2=" + incompleteCoding);
+    console.log("C3=" + completedArticles);
+    console.log("IC3=" + incompleteArticles);
+    console.log("C4=" + completedVideos);
+    console.log("IC4=" + incompleteVideos);
+    networkingArr.push(completedNetworking, incompleteNetworking);
+    // console.log(networkingArr);
+    // let codingArr = [];
+    // let articlesArr = [];
+    // let videosArr = [];
+
+  });
+  var networkingDataSet = {
+    datasets: [{
+       networkingArr
+    }],
+    labels:["Completed", "Incompleted"]
+  };
+  let pie1 = new Chart(document.getElementById("my-chart-pie1"), {
+    type: "pie",
     data: {
       labels: ["Completed", "Incomplete"],
       datasets: [{
         label: "Coding Exercises",
         backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [23, 55]
+        data: [parseFloat(completedNetworking), parseFloat(incompleteNetworking)]
       }]
     },
     options: {
+      legend: {
+        display: true
+      },
       title: {
         display: true,
-        text: 'Coding Exercises'
+        text: "Networking"
       },
       tooltips: {
         callbacks: {
@@ -153,20 +199,61 @@ $(document).ready(function () {
       }
     }
   });
-  new Chart(document.getElementById("my-chart-pie3"), {
-    type: 'pie',
+
+  // function addData(){
+  //   pie1.data.datasets[0].data[4, 20],
+  //   pie1.data.labels[0]="Completed, Incomplete";
+  //   pie1.update();
+  // }
+  // addData();
+  let pie2 = new Chart(document.getElementById("my-chart-pie2"), {
+    type: "pie",
+    data: {
+      labels: ["Completed", "Incomplete"],
+      datasets: [{
+        label: "Coding Exercises",
+        backgroundColor: ["#3e95cd", "#8e5ea2"],
+        data: [5, 30]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Coding Exercises"
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem, data) {
+            var dataset = data.datasets[tooltipItem.datasetIndex];
+            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+            var total = meta.total;
+            var currentValue = dataset.data[tooltipItem.index];
+            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+            return currentValue + " (" + percentage + "%)";
+          },
+          title: function (tooltipItem, data) {
+            return data.labels[tooltipItem[0].index];
+          }
+        }
+      }
+    }
+  });
+
+
+  let pie3 = new Chart(document.getElementById("my-chart-pie3"), {
+    type: "pie",
     data: {
       labels: ["Completed", "Incomplete"],
       datasets: [{
         label: "Articles",
         backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [13, 48]
+        data: [4, 35]
       }]
     },
     options: {
       title: {
         display: true,
-        text: 'Articles'
+        text: "Articles"
       },
       tooltips: {
         callbacks: {
@@ -186,20 +273,22 @@ $(document).ready(function () {
     },
 
   });
-  new Chart(document.getElementById("my-chart-pie4"), {
-    type: 'pie',
+
+
+  let pie4 = new Chart(document.getElementById("my-chart-pie4"), {
+    type: "pie",
     data: {
       labels: ["Completed", "Incomplete"],
       datasets: [{
         label: "Videos",
         backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [39, 75]
+        data: [6, 20]
       }]
     },
     options: {
       title: {
         display: true,
-        text: 'Videos'
+        text: "Videos"
       },
       tooltips: {
         callbacks: {
@@ -219,4 +308,20 @@ $(document).ready(function () {
     },
 
   });
+
+  // function addData(chart, label, data) {
+  //   chart.data.labels.push(label);
+  //   chart.data.datasets.forEach((dataset) => {
+  //     dataset.data.push(data);
+  //   });
+  //   chart.update();
+  // }
+  // const label = "Networking";
+
+  // function updatePieChart(newDataArr, chart, label){
+  //   for(let j=0; j<newDataArr.length; j++){
+  //     addData(chart, label, newDataArr[j]);
+  //   }
+  // }
+  // updatePieChart(networkingArr, pie1, label);
 });

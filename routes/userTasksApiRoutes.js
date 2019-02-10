@@ -3,14 +3,33 @@ var db = require("../models");
 module.exports = function (app) {
   app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
-    db.UserTask.findAll({
+    db.UserTask.findAll({ 
       where: {
         userId: req.params.id
-      }
+      },
+      include: [db.Task]
     }).then(function (tasks) {
-      res.send(tasks);
+      res.json(tasks);
     });
   });
+
+  // app.get("/api/Tasks/:id", function (req, res) {
+  //   console.log("----- user tasks -------");
+  //   db.UserTask.count({ 
+      
+  //     where: {
+  //       userId: req.params.id,
+  //       completed: true,
+  //       CategoryId: 4
+  //     },
+  //     include: [db.Task]
+  //   }).then(function (count) {
+  //     res.json(count);
+  //   });
+  // });
+  
+  //use this route to get all tasks with ajax call (GET)
+  //add as include : db.Task
 
   // Create a user tasks for a specific user id
   app.post("/api/userTasks/", function (req, res) {

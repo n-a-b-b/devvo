@@ -8,7 +8,8 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true })); //this was set to false, 
+//so it was not translating client(browser) input value so it was goign to route
 app.use(express.json());
 app.use(express.static("public"));
 
