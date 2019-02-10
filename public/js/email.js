@@ -23,8 +23,6 @@ $(document).ready(function () {
         body: this.body.value
       };
 
-      console.log(newEmail);
-
       $.ajax("api/email/send-email", {
         type: "POST",
         data: newEmail
