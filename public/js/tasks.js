@@ -1,6 +1,11 @@
 const sound = document.createElement("audio");
 
+// Logic for date current week display
+const firstWeekday = Date.today().last().sunday().toString("dddd, MMMM d");
+const lastWeekday = Date.last().saturday().add(7).day().toString("dddd, MMMM d");
+const currentWeek = ` ${firstWeekday} - ${lastWeekday}`;
 
+//Completed audio clip playback
 sound.src = "/audio/devoyeah.mp3";
 sound.volume = 1;
 sound.autoPlay = false;
@@ -17,6 +22,7 @@ $(document).ready(function () {
   }
   getTasks();
   updateProgressBar();
+  populateWeek();
 
   //If playCompleteSound local storage variable is set to trun then play the completed sound
   const playCompletedSound = localStorage.getItem("playCompleteSound");
@@ -98,5 +104,14 @@ function updateProgressBar() {
     .attr("aria-valuenow", currentProgress)
     .text(currentProgress + "%");
 }
+
+function populateWeek() {
+  $("#weekInfo")
+    .append(currentWeek);
+}
+
+console.log(currentWeek);
+
+
 
 

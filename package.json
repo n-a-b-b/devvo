@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "browserify": "^16.2.3",
     "chart.js": "^2.7.3",
+    "datejs": "^1.0.0-rc3",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
