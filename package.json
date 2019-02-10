@@ -11,6 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@loadingio/loading-bar": "^0.1.1",
     "body-parser": "^1.18.3",
     "browserify": "^16.2.3",
     "chart.js": "^2.7.3",
@@ -19,6 +20,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
+    "gulp": "^4.0.0",
     "hover.css": "^2.3.2",
     "mysql2": "^1.6.4",
     "nodemailer": "^5.1.1",
