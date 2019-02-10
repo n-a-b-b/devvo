@@ -5,7 +5,7 @@
   <div class="row">
 
     <div class="col-12 my-3">
-      <h2 class="text-white"> This Week's Tasks {{currentWeekDay}}</h2>
+      <h2 class="text-white font-weight-bold"> This Week's Tasks {{currentWeekDay}}</h2>
 
     </div>
 
@@ -35,15 +35,13 @@
     <div class="col-sm-12 col-md-3 order-1 order-sm-1 order-md-2 mb-3">
       <div class="row">
         <div class="col-md-12 col-sm-12 mb-12 float-right">
-          <div class="card">
-            <div class="card-body text-center">
-              <h5 class="card-title mt-3">Task Progress</h5>
-              <div class="progress">
-                <div id="dynamic" class="progress-bar bg-danger progress-bar-striped"
-                  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 
-                </div>
-              </div>
+          <div class="card" id="progressCard">
+            <div class="card-body text-center" id="progressCardBody">
+              <h3 class="card-title" id="taskProgressTitle">Task Progress</h3>
+              <div class="ldBar label-center" data-type="fill" data-fill-background="white" data-img-size="100,100" data-img="/img/AreWeNotCutouts.png" data-fill-dir="btt"
+                data-fill-background="#9df">
+            
 
             </div>
           </div>
