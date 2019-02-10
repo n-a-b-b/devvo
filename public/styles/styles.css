@@ -6,6 +6,12 @@ html {
 body {
   margin-bottom: 80px;
   font-family: 'Play', sans-serif;
+  background: url('../img/coding-background-image-9.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
 }
 
 .list-group-item {
@@ -69,10 +75,25 @@ footer {
 #successboard-title {
   font-size: 40px;
   font-stretch: expanded;
+  color: white;
 }
+
+.right-panel {
+  background-color: white;
+}
+
+#my-chart-bar {
+  background-color: white;
+}
+
+/* Contact Us page */
 
 .emailBody {
   height: 200px;
+}
+
+h1 {
+  color: white;
 }
 
 @-webkit-keyframes hvr-pulse-grow {
