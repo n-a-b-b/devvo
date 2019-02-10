@@ -13,20 +13,34 @@ $(document).ready(function () {
   $(document).on("submit", "#emailForm", function (event) {
     event.preventDefault();
 
-    var newEmail = {
-      from: this.from.value,
-      subject: this.subject.value,
-      body: this.body.value
-    };
+    if (this.checkValidity()) {
+      const emailFormFields = $("#emailForm :input, #emailForm :button");
+      emailFormFields.prop("disabled", true);
 
-    console.log(newEmail);
+      var newEmail = {
+        from: this.from.value,
+        subject: this.subject.value,
+        body: this.body.value
+      };
 
-    $.ajax("api/email/send-email", {
-      type: "POST",
-      data: newEmail
-    }).then(function () {
-      console.log("sent new email");
-    });
+      console.log(newEmail);
+
+      $.ajax("api/email/send-email", {
+        type: "POST",
+        data: newEmail
+      })
+        .done(function () {
+          $("#emailSentModal").modal("show");
+        })
+        .fail(function() {
+          alert("Error sending email!");
+        })
+        .always(function () {
+          emailFormFields.prop("disabled", false);
+        });
+    }
+
+    this.classList.add("was-validated");
   });
 
 });

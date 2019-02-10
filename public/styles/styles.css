@@ -65,3 +65,7 @@ footer {
   font-size: 40px;
   font-stretch: expanded;
 }
+
+.emailBody {
+  height: 200px;
+}

@@ -1,37 +1,51 @@
 <!-- Questions email-->
-<div class="container"><br />
-  <h1>Send Us Your Questions or Comments</h1><br />
-  <form id= "emailForm">
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="form-group col-md-4">
-        <label for="to">From:</label>
-        <input type="text" class="form-control" name="from" id="from" readonly>
-      </div>
-    </div>
+<div class="container">
 
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="form-group col-md-4">
-        <label for="subject">Subject:</label>
-        <input type="text" class="form-control" name="subject" required>
-      </div>
-    </div>
+  <div class="row mt-3">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h1>Send Us Your Questions or Comments</h1>
 
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="form-group col-md-4">
-        <label for="body">Body:</label>
-        <textarea cols="5" rows="5" class="form-control" name="body" required></textarea>
+      <form id="emailForm" class="needs-validation" novalidate>
+        <div class="form-group">
+          <input id="from" type="text" class="form-control" name="from" placeholder="your email address" readonly required>
+          <div class="invalid-feedback">
+            Please enter a burger name.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" name="subject" pattern=".*\S+.*" placeholder="enter a subject" required>
+          <div class="invalid-feedback">
+            Please enter a subject.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <textarea type="text" class="form-control emailBody" pattern=".*\S+.*" name="body" placeholder="enter body text" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a body.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-block">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Email sent modal-->
+<div class="modal" tabindex="-1" role="dialog" id="emailSentModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Email sent!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="form-group col-md-4">
-        <button type="submit" class="btn btn-success">Send</button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>
 
 <script src="/js/email.js"></script>
