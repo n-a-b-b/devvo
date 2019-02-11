@@ -24,11 +24,11 @@ The deployed application can be found [here](https://devvo-nabb.herokuapp.com/).
 
 5. Using the nav bar you can navigate to the `Successboard` page which displays other developers that have completed their interview prep, top 5 developers that are in progress, and your progress in each category of task. 
 
-    ![](screenshots/successboard.jpg "Screenshot of the successboard page")
+    ![](screenshots/successboard.JPG "Screenshot of the successboard page")
 
 6. Using the nav bar you can navigate to the `Contact Us` page which allows users to contact Devvo with any questions or comments. 
 
-    ![](screenshots/contactUs.jpg "Screenshot of the Contact Us page")
+    ![](screenshots/contactUs.JPG "Screenshot of the Contact Us page")
 
 7. The user can `log off` by clicking their `profile picture` on the right side of the upper nav bar. Doing so will bring them back to the login screen. 
 
