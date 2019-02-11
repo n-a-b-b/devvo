@@ -15,20 +15,30 @@ $(document).ready(function () {
   var User4 = [10, 20, 25, 35];
   var User5 = [5, 10, 15, 39];
 //get number of users and store it in variable. 
-let currentNumUsers = 1;
-let usersCompletedArray = [];
+let currentNumUsers = 5;
+let userNumCompletedArr = new Array(currentNumUsers);
+// let numCompletedArr = new Array(35);
 
   $.get("/api/userTasks/all", function (data) {
     console.log(data);
-    //how many complete per user?
-    //log user name and whether complete or not 
-    // console.log("data[l]UserId = "+ data[0].completed);
+    //initialize array to num users in db currently
+    for(let j=0; j<currentNumUsers; j++){
+      
+      userNumCompletedArr[j]= new Array(35);
+      // for(let m=0; m<35; m++){
+      //   userNumCompletedArr[j][m].push(0);
+      // }
+    }
+    console.log(userNumCompletedArr);
+    
+    //How many complete per user 
+ 
     for(let k = 0; k<=currentNumUsers; k++){
       console.log("k="+k);
       for(let l=0; l<=data.length-1; l++){
         console.log("l="+l);
         if(data[l].UserId === k && data[l].completed === true){
-          usersCompletedArray[k]++;
+          usersCompletedArray.push([""]);
         }
       }
     }
