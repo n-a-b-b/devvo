@@ -72,13 +72,80 @@ $(document).ready(function () {
     }
     console.log(sumsCompletedArr);
 
-    //Find 5 top performers
+    //**Find 5 top performers**
+    
+    //Store all sums in order in new array
     let sumHolder = 0;
+    let orderedSumsArr = new Array(currentNumUsers);
+
     for (let t=0; t<sumsCompletedArr.length; t++){
       sumHolder =   sumsCompletedArr[t][0];
       console.log("sumHolder = "+ sumHolder);
+      orderedSumsArr[t]=(sumHolder);
     }
+    console.log(orderedSumsArr);
+    console.log(orderedSumsArr.length);
     
+    //Order the sums greatest to least
+    let sumHolder2 = 0;
+    // for(let v=0; v>=orderedSumsArr.length; v++){
+    for(let u=orderedSumsArr.length; u>0; u--){
+      console.log(" u = " + u);
+      console.log("orderedSumsArr[u] = " + orderedSumsArr[u]);
+      console.log("orderedSumsArr[u-1] = " + orderedSumsArr[u-1]);
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+    
+    
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+    
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+   
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+    
+    
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+   
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+   
+      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+        sumHolder2 = orderedSumsArr[u-1];
+        orderedSumsArr[u-1]=orderedSumsArr[u];
+        orderedSumsArr[u]= sumHolder2;
+      }
+      console.log(orderedSumsArr);
+    
+    }
+    console.log(orderedSumsArr);
   });
     
  
