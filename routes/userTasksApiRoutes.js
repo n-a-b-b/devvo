@@ -10,23 +10,7 @@ module.exports = function (app) {
     //Find all the user tasks
     db.UserTask.findAll({
       include: [db.User]
-    }).then(function (userTasks) {
-      // console.log(userTasks);
-      // console.log(userTasks.TaskId);
-      
-      // let userCompletedArray = [];
-      //then loop through the tasks and create a two dimensional array 
-      //of users and their completed tasks.
-      // for(h=0; h<userTasks.length; h++){
-      //   for (let j=1; j<Users.length; i++){
-      //     if(userTasks[i].UserId===j){
-      //       if(userTasks[i].completed===true){
-      //         userCompletedArray[i].push([i]);
-      //       }
-      //     }
-      //   }
-      // }
-      
+    }).then(function (userTasks) { 
       res.json(userTasks);
     });
   });

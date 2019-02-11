@@ -14,35 +14,39 @@ $(document).ready(function () {
   var User3 = [3, 5, 10, 15];
   var User4 = [10, 20, 25, 35];
   var User5 = [5, 10, 15, 39];
-//get number of users and store it in variable. 
-let currentNumUsers = 5;
-let userNumCompletedArr = new Array(currentNumUsers);
-// let numCompletedArr = new Array(35);
+  //get number of users and store it in variable. 
+  let currentNumUsers = 10;
+  let userNumCompletedArr = new Array(currentNumUsers);
+  // let numCompletedArr = new Array(35);
 
   $.get("/api/userTasks/all", function (data) {
     console.log(data);
-    //initialize array to num users in db currently
+
+    //Create 2-D array to store number of completed tasks per user
     for(let j=0; j<currentNumUsers; j++){
-      
       userNumCompletedArr[j]= new Array(35);
-      // for(let m=0; m<35; m++){
-      //   userNumCompletedArr[j][m].push(0);
-      // }
     }
-    console.log(userNumCompletedArr);
+    // console.log(userNumCompletedArr);
     
+    //Initialize array to zero
+    // for(let p=0; p<currentNumUsers; p++){
+    //   for(let q=0; q<35; q++){
+    //     userNumCompletedArr[p][q]= 0;
+    //   }
+    // }
+
+    // console.log(userNumCompletedArr);
+    console.log(data[42].UserId);
     //How many complete per user 
- 
     for(let k = 0; k<=currentNumUsers; k++){
-      console.log("k="+k);
       for(let l=0; l<=data.length-1; l++){
-        console.log("l="+l);
-        if(data[l].UserId === k && data[l].completed === true){
-          usersCompletedArray.push([""]);
+        console.log(k);
+        if(data[l].UserId === k+1 && data[l].completed === true){
+          userNumCompletedArr[k][l]=1;
         }
       }
     }
-    console.log("usersCompletedArray = " + usersCompletedArray );
+    console.log( userNumCompletedArr );
   });
 
   var ctx = document.getElementById("my-chart-bar");
