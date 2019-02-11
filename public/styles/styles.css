@@ -47,32 +47,10 @@ footer {
   cursor: pointer;
 }
 
-.taskCard {
-  height: 100%;
-}
-
-.card-header {
-  min-height: 83px;
-}
-
-.card-footer {
-  background-color: unset !important;
-  border-top: unset !important;
-}
-
 @media screen and (max-width: 576px) {
   .devvoHeader {
     background-position: center top;
   }
-}
-
-#successboard-title {
-  font-size: 40px;
-  font-stretch: expanded;
-}
-
-.emailBody {
-  height: 200px;
 }
 
 @-webkit-keyframes hvr-pulse-grow {
