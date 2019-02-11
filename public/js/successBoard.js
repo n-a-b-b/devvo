@@ -20,34 +20,64 @@ $(document).ready(function () {
   // let numCompletedArr = new Array(35);
 
   $.get("/api/userTasks/all", function (data) {
-    console.log(data);
+    // console.log(data);
 
     //Create 2-D array to store number of completed tasks per user
     for(let j=0; j<currentNumUsers; j++){
-      userNumCompletedArr[j]= new Array(35);
+      userNumCompletedArr[j]= new Array(currentNumUsers*35);
     }
-    // console.log(userNumCompletedArr);
+    console.log(userNumCompletedArr);
     
-    //Initialize array to zero
-    // for(let p=0; p<currentNumUsers; p++){
-    //   for(let q=0; q<35; q++){
-    //     userNumCompletedArr[p][q]= 0;
-    //   }
-    // }
+    //Initialize array to zero              
+    for(let p=0; p<currentNumUsers; p++){
+      for(let q=0; q<currentNumUsers*35; q++){
+        userNumCompletedArr[p][q]= 0;
+      }
+    }
 
-    // console.log(userNumCompletedArr);
-    console.log(data[42].UserId);
+    console.log(userNumCompletedArr);
+
     //How many complete per user 
     for(let k = 0; k<=currentNumUsers; k++){
       for(let l=0; l<=data.length-1; l++){
-        console.log(k);
         if(data[l].UserId === k+1 && data[l].completed === true){
-          userNumCompletedArr[k][l]=1;
+          userNumCompletedArr[k][l]=1; 
         }
       }
     }
-    console.log( userNumCompletedArr );
+    console.log(userNumCompletedArr);
+
+    //ALGORITHM TO FIND SUM OF TASKS COMPLETED PER USER
+    let sumsCompletedArr = new Array(currentNumUsers);
+  
+    //Create 2-D array to store *sum* of completed tasks per user
+    for(let t=0; t<currentNumUsers; t++){
+      sumsCompletedArr[t]= new Array(1);
+    }
+    
+    console.log(sumsCompletedArr);
+
+    //Loop through and get sum of completed tasks per user and store
+    //in 2-D array. 
+    let sum = 0;
+    for (let r=0; r<userNumCompletedArr.length; r++){
+      for(let s=0; s<(currentNumUsers*35); s++){
+        
+        sum += userNumCompletedArr[r][s];
+        console.log("sum in for loop = " + sum);
+      }
+      console.log(sum);//NaN
+      sumsCompletedArr[r][0] = sum;
+      sum = 0;
+    }
+    console.log(sumsCompletedArr); //NaN
+
   });
+    
+  // console.log(arrSum(userNumCompletedArr)
+
+    
+  
 
   var ctx = document.getElementById("my-chart-bar");
   var myChart = new Chart(ctx, {
