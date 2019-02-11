@@ -66,15 +66,22 @@ $(document).ready(function () {
         sum += userNumCompletedArr[r][s];
         console.log("sum in for loop = " + sum);
       }
-      console.log(sum);//NaN
+      console.log(sum);
       sumsCompletedArr[r][0] = sum;
       sum = 0;
     }
-    console.log(sumsCompletedArr); //NaN
+    console.log(sumsCompletedArr);
 
+    //Find 5 top performers
+    let sumHolder = 0;
+    for (let t=0; t<sumsCompletedArr.length; t++){
+      sumHolder =   sumsCompletedArr[t][0];
+      console.log("sumHolder = "+ sumHolder);
+    }
+    
   });
     
-  // console.log(arrSum(userNumCompletedArr)
+ 
 
     
   
