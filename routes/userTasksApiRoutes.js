@@ -1,18 +1,33 @@
 var db = require("../models");
 
 module.exports = function (app) {
+  //Find all user tasks for the current logged in user
+  //Also do left join to retrieve the corresponding task from Tasks table
+ 
+  app.get("/api/userTasks/all", function (req, res) {
+    console.log("----- all user tasks -------");
+    
+    //Find all the user tasks
+    db.UserTask.findAll({
+      include: [db.User]
+    }).then(function (userTasks) { 
+      res.json(userTasks);
+    });
+  });
+ 
   app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
-    db.UserTask.findAll({
+    db.UserTask.findAll({ 
       where: {
         userId: req.params.id
-      }
+      },
+      include: [db.Task]
     }).then(function (tasks) {
-      res.send(tasks);
+      res.json(tasks);
     });
   });
 
-  // Create a user tasks for a specific user id
+  // Create a user task for a specific user id
   app.post("/api/userTasks/", function (req, res) {
     const userId = req.body.userId;
 

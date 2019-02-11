@@ -14,6 +14,40 @@ $(document).ready(function () {
   var User3 = [3, 5, 10, 15];
   var User4 = [10, 20, 25, 35];
   var User5 = [5, 10, 15, 39];
+  //get number of users and store it in variable. 
+  let currentNumUsers = 10;
+  let userNumCompletedArr = new Array(currentNumUsers);
+  // let numCompletedArr = new Array(35);
+
+  $.get("/api/userTasks/all", function (data) {
+    console.log(data);
+
+    //Create 2-D array to store number of completed tasks per user
+    for(let j=0; j<currentNumUsers; j++){
+      userNumCompletedArr[j]= new Array(35);
+    }
+    // console.log(userNumCompletedArr);
+    
+    //Initialize array to zero
+    // for(let p=0; p<currentNumUsers; p++){
+    //   for(let q=0; q<35; q++){
+    //     userNumCompletedArr[p][q]= 0;
+    //   }
+    // }
+
+    // console.log(userNumCompletedArr);
+    console.log(data[42].UserId);
+    //How many complete per user 
+    for(let k = 0; k<=currentNumUsers; k++){
+      for(let l=0; l<=data.length-1; l++){
+        console.log(k);
+        if(data[l].UserId === k+1 && data[l].completed === true){
+          userNumCompletedArr[k][l]=1;
+        }
+      }
+    }
+    console.log( userNumCompletedArr );
+  });
 
   var ctx = document.getElementById("my-chart-bar");
   var myChart = new Chart(ctx, {
@@ -87,136 +121,210 @@ $(document).ready(function () {
   });
 
   //PIE CHARTS-SUCCESS PER CATEGORY
-  const pie1 = new Chart(document.getElementById("my-chart-pie1"), {
-    type: 'pie',
-    data: {
-      labels: ["Completed", "Incomplete"],
-      datasets: [{
-        label: "Networking",
-        backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [21, 67]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Networking'
-      },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-            var total = meta.total;
-            var currentValue = dataset.data[tooltipItem.index];
-            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-            return currentValue + " (" + percentage + "%)";
-          },
-          title: function (tooltipItem, data) {
-            return data.labels[tooltipItem[0].index];
-          }
+  //Retrieve the current data from db
+
+  let userObject = getUserObject();
+  let completedNetworking = 0;
+  let incompleteNetworking = 0;
+  let completedCoding= 0;
+  let incompleteCoding= 0;
+  let completedArticles= 0;
+  let incompleteArticles=0;
+  let completedVideos=0;
+  let incompleteVideos=0;
+  let networkingArr = [];
+  let codingArr = [];
+  let articlesArr = [];
+  let videosArr = [];
+
+  $.get(`/api/userTasks/${userObject.userId}`, function (data) {
+   
+    for(let i = 0; i<data.length; i++){
+
+      if(data[i].Task.CategoryId === 1){
+        if(data[i].completed=== true){
+          completedNetworking++;
+        }else{
+          
+          incompleteNetworking++;
+        }
+      }
+      if(data[i].Task.CategoryId === 2){
+        if(data[i].completed=== true){
+          
+          completedCoding++;
+        }else{
+         
+          incompleteCoding++;
+        }
+      }
+      if(data[i].Task.CategoryId === 3){
+        if(data[i].completed=== true){
+          completedArticles++;
+        }else{
+          incompleteArticles++;
+        }
+      }
+      if(data[i].Task.CategoryId === 4){
+        if(data[i].completed=== true){
+          completedVideos++;
+        }else{
+          incompleteVideos++;
         }
       }
     }
-  });
 
-  // document.getElementById("#legend").innerHTML = pie1.generateLegend();
-  new Chart(document.getElementById("my-chart-pie2"), {
-    type: 'pie',
-    data: {
-      labels: ["Completed", "Incomplete"],
-      datasets: [{
-        label: "Coding Exercises",
-        backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [23, 55]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Coding Exercises'
+    console.log("C1=" + completedNetworking);
+    console.log(typeof(completedNetworking));
+    console.log("IC1=" + incompleteNetworking);
+    console.log("C2=" + completedCoding);
+    console.log("IC2=" + incompleteCoding);
+    console.log("C3=" + completedArticles);
+    console.log("IC3=" + incompleteArticles);
+    console.log("C4=" + completedVideos);
+    console.log("IC4=" + incompleteVideos);
+    networkingArr.push(completedNetworking, incompleteNetworking);
+    codingArr.push(completedCoding, incompleteCoding);
+    articlesArr.push(completedArticles, incompleteArticles);
+    videosArr.push(completedVideos, incompleteVideos);
+ 
+    let pie1 = new Chart(document.getElementById("my-chart-pie1"), {
+      type: "pie",
+      data: {
+        labels: ["Completed", "Incomplete"],
+        datasets: [{
+          label: "Coding Exercises",
+          backgroundColor: ["#3e95cd", "#8e5ea2"],
+          data: networkingArr
+        }]
       },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-            var total = meta.total;
-            var currentValue = dataset.data[tooltipItem.index];
-            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-            return currentValue + " (" + percentage + "%)";
-          },
-          title: function (tooltipItem, data) {
-            return data.labels[tooltipItem[0].index];
+      options: {
+        legend: {
+          display: true
+        },
+        title: {
+          display: true,
+          text: "Networking"
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+              var total = meta.total;
+              var currentValue = dataset.data[tooltipItem.index];
+              var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+              return currentValue + " (" + percentage + "%)";
+            },
+            title: function (tooltipItem, data) {
+              return data.labels[tooltipItem[0].index];
+            }
           }
         }
       }
-    }
-  });
-  new Chart(document.getElementById("my-chart-pie3"), {
-    type: 'pie',
-    data: {
-      labels: ["Completed", "Incomplete"],
-      datasets: [{
-        label: "Articles",
-        backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [13, 48]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Articles'
+    });
+
+
+    let pie2 = new Chart(document.getElementById("my-chart-pie2"), {
+      type: "pie",
+      data: {
+        labels: ["Completed", "Incomplete"],
+        datasets: [{
+          label: "Coding Exercises",
+          backgroundColor: ["#3e95cd", "#8e5ea2"],
+          data: codingArr
+        }]
       },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-            var total = meta.total;
-            var currentValue = dataset.data[tooltipItem.index];
-            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-            return currentValue + " (" + percentage + "%)";
-          },
-          title: function (tooltipItem, data) {
-            return data.labels[tooltipItem[0].index];
+      options: {
+        title: {
+          display: true,
+          text: "Coding Exercises"
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+              var total = meta.total;
+              var currentValue = dataset.data[tooltipItem.index];
+              var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+              return currentValue + " (" + percentage + "%)";
+            },
+            title: function (tooltipItem, data) {
+              return data.labels[tooltipItem[0].index];
+            }
           }
         }
       }
-    },
+    });
 
-  });
-  new Chart(document.getElementById("my-chart-pie4"), {
-    type: 'pie',
-    data: {
-      labels: ["Completed", "Incomplete"],
-      datasets: [{
-        label: "Videos",
-        backgroundColor: ["#3e95cd", "#8e5ea2"],
-        data: [39, 75]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Videos'
+
+    let pie3 = new Chart(document.getElementById("my-chart-pie3"), {
+      type: "pie",
+      data: {
+        labels: ["Completed", "Incomplete"],
+        datasets: [{
+          label: "Articles",
+          backgroundColor: ["#3e95cd", "#8e5ea2"],
+          data: articlesArr
+        }]
       },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-            var total = meta.total;
-            var currentValue = dataset.data[tooltipItem.index];
-            var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-            return currentValue + " (" + percentage + "%)";
-          },
-          title: function (tooltipItem, data) {
-            return data.labels[tooltipItem[0].index];
+      options: {
+        title: {
+          display: true,
+          text: "Articles"
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+              var total = meta.total;
+              var currentValue = dataset.data[tooltipItem.index];
+              var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+              return currentValue + " (" + percentage + "%)";
+            },
+            title: function (tooltipItem, data) {
+              return data.labels[tooltipItem[0].index];
+            }
           }
         }
-      }
-    },
+      },
 
+    });
+
+
+    let pie4 = new Chart(document.getElementById("my-chart-pie4"), {
+      type: "pie",
+      data: {
+        labels: ["Completed", "Incomplete"],
+        datasets: [{
+          label: "Videos",
+          backgroundColor: ["#3e95cd", "#8e5ea2"],
+          data: videosArr
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Videos"
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+              var total = meta.total;
+              var currentValue = dataset.data[tooltipItem.index];
+              var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+              return currentValue + " (" + percentage + "%)";
+            },
+            title: function (tooltipItem, data) {
+              return data.labels[tooltipItem[0].index];
+            }
+          }
+        }
+      },
+    });
   });
 });
