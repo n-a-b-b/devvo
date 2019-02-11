@@ -105,9 +105,13 @@ $(document).on("click", ".complete", function (event) {
 
 function updateProgressBar() {
 
+  $("#dynamic")
+    .css("width", currentProgress + "%")
+    .attr("aria-valuenow", currentProgress)
+    .text(currentProgress + "%");
 
-  $(".ldBar")
-    .attr("data-value", currentProgress);
+  // $(".ldBar")
+  //   .attr("data-value", currentProgress);
 }
 
 function populateWeek() {
