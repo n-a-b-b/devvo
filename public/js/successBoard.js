@@ -14,6 +14,26 @@ $(document).ready(function () {
   var User3 = [3, 5, 10, 15];
   var User4 = [10, 20, 25, 35];
   var User5 = [5, 10, 15, 39];
+//get number of users and store it in variable. 
+let currentNumUsers = 1;
+let usersCompletedArray = [];
+
+  $.get("/api/userTasks/all", function (data) {
+    console.log(data);
+    //how many complete per user?
+    //log user name and whether complete or not 
+    // console.log("data[l]UserId = "+ data[0].completed);
+    for(let k = 1; k<=currentNumUsers; k++){
+      console.log(k);
+      for(let l=0; l<=data.length; l++){
+        console.log(data[l].UserId);
+        if(data[l].UserId === k && data[l].completed === true){
+          usersCompletedArray[k]++;
+        }
+      }
+    }
+    console.log("usersCompletedArray = " + usersCompletedArray );
+  });
 
   var ctx = document.getElementById("my-chart-bar");
   var myChart = new Chart(ctx, {
@@ -104,11 +124,9 @@ $(document).ready(function () {
   let videosArr = [];
 
   $.get(`/api/userTasks/${userObject.userId}`, function (data) {
-    // console.log(data);
-    // console.log(data[0].completed);
+   
     for(let i = 0; i<data.length; i++){
-      // console.log(data.length);
-      // console.log(data[i].Task.CategoryId);
+
       if(data[i].Task.CategoryId === 1){
         if(data[i].completed=== true){
           completedNetworking++;
@@ -156,12 +174,6 @@ $(document).ready(function () {
     articlesArr.push(completedArticles, incompleteArticles);
     videosArr.push(completedVideos, incompleteVideos);
  
-    var networkingDataSet = {
-      datasets: [{
-        networkingArr
-      }],
-      labels:["Completed", "Incompleted"]
-    };
     let pie1 = new Chart(document.getElementById("my-chart-pie1"), {
       type: "pie",
       data: {

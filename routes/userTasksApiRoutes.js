@@ -1,6 +1,36 @@
 var db = require("../models");
 
 module.exports = function (app) {
+  //Find all user tasks for the current logged in user
+  //Also do left join to retrieve the corresponding task from Tasks table
+ 
+  app.get("/api/userTasks/all", function (req, res) {
+    console.log("----- all user tasks -------");
+    
+    //Find all the user tasks
+    db.UserTask.findAll({
+      include: [db.User]
+    }).then(function (userTasks) {
+      // console.log(userTasks);
+      // console.log(userTasks.TaskId);
+      
+      // let userCompletedArray = [];
+      //then loop through the tasks and create a two dimensional array 
+      //of users and their completed tasks.
+      // for(h=0; h<userTasks.length; h++){
+      //   for (let j=1; j<Users.length; i++){
+      //     if(userTasks[i].UserId===j){
+      //       if(userTasks[i].completed===true){
+      //         userCompletedArray[i].push([i]);
+      //       }
+      //     }
+      //   }
+      // }
+      
+      res.json(userTasks);
+    });
+  });
+ 
   app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
     db.UserTask.findAll({ 
@@ -13,25 +43,7 @@ module.exports = function (app) {
     });
   });
 
-  // app.get("/api/Tasks/:id", function (req, res) {
-  //   console.log("----- user tasks -------");
-  //   db.UserTask.count({ 
-      
-  //     where: {
-  //       userId: req.params.id,
-  //       completed: true,
-  //       CategoryId: 4
-  //     },
-  //     include: [db.Task]
-  //   }).then(function (count) {
-  //     res.json(count);
-  //   });
-  // });
-  
-  //use this route to get all tasks with ajax call (GET)
-  //add as include : db.Task
-
-  // Create a user tasks for a specific user id
+  // Create a user task for a specific user id
   app.post("/api/userTasks/", function (req, res) {
     const userId = req.body.userId;
 
