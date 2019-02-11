@@ -20,7 +20,8 @@ $(document).ready(function () {
   // let numCompletedArr = new Array(35);
 
   $.get("/api/userTasks/all", function (data) {
-    // console.log(data);
+    let orderedSumsArr = new Array(currentNumUsers);
+
 
     //Create 2-D array to store number of completed tasks per user
     for(let j=0; j<currentNumUsers; j++){
@@ -76,7 +77,7 @@ $(document).ready(function () {
     
     //Store all sums in order in new array
     let sumHolder = 0;
-    let orderedSumsArr = new Array(currentNumUsers);
+    // let orderedSumsArr = new Array(currentNumUsers);
 
     for (let t=0; t<sumsCompletedArr.length; t++){
       sumHolder =   sumsCompletedArr[t][0];
@@ -88,69 +89,26 @@ $(document).ready(function () {
     
     //Order the sums greatest to least
     let sumHolder2 = 0;
-    // for(let v=0; v>=orderedSumsArr.length; v++){
-    for(let u=orderedSumsArr.length; u>0; u--){
-      console.log(" u = " + u);
-      console.log("orderedSumsArr[u] = " + orderedSumsArr[u]);
-      console.log("orderedSumsArr[u-1] = " + orderedSumsArr[u-1]);
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
+    let swapped = false;
+    do{
+      swapped = false;
+      for(let u=orderedSumsArr.length; u>0; u--){
+        console.log(" u = " + u);
+        console.log("orderedSumsArr[u] = " + orderedSumsArr[u]);
+        console.log("orderedSumsArr[u-1] = " + orderedSumsArr[u-1]);
+        if(orderedSumsArr[u] >orderedSumsArr[u-1]){
+          sumHolder2 = orderedSumsArr[u-1];
+          orderedSumsArr[u-1]=orderedSumsArr[u];
+          orderedSumsArr[u]= sumHolder2;
+          swapped = true;
+        }
+        console.log(orderedSumsArr);
       }
       console.log(orderedSumsArr);
-    
-    
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-    
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-   
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-    
-    
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-   
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-   
-      if(orderedSumsArr[u] >orderedSumsArr[u-1]){
-        sumHolder2 = orderedSumsArr[u-1];
-        orderedSumsArr[u-1]=orderedSumsArr[u];
-        orderedSumsArr[u]= sumHolder2;
-      }
-      console.log(orderedSumsArr);
-    
-    }
+    }while(swapped);
+    console.log("Now logging final sums array: ");
     console.log(orderedSumsArr);
   });
-    
- 
-
-    
   
 
   var ctx = document.getElementById("my-chart-bar");
