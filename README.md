@@ -8,7 +8,7 @@ The deployed application can be found [here](https://devvo-nabb.herokuapp.com/).
 
 1. When first visiting the website the application will ask the user to `login` with a google account.
 
-    ![](screenshots/login.JPG "Screenshot of Login Page")
+    ![](screenshots/login.jpg "Screenshot of Login Page")
 
 2. After logging in the user will be asked to select the `skill level` for the job they will be interviewing for.
 
