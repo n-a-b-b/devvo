@@ -1,5 +1,12 @@
 const sound = document.createElement("audio");
 
+// Logic for date current week display
+const firstWeekday = Date.today().last().sunday().toString("dddd, MMMM d");
+const lastWeekday = Date.last().saturday().add(7).day().toString("dddd, MMMM d");
+const currentWeek = ` ${firstWeekday} - ${lastWeekday}`;
+const currentWeekIfSunday = ` ${Date.today().toString("dddd, MMMM d")} - ${lastWeekday}`;
+
+//Completed audio clip playback
 
 sound.src = "/audio/devoyeah.mp3";
 sound.volume = 1;
@@ -13,43 +20,55 @@ $(document).ready(function () {
   //If the user is not authenticated then redirect to the login page
   if (!isAuthenticated()) {
     window.location.href = "/";
+    return;
   }
   getTasks();
   updateProgressBar();
+  populateWeek();
 
+  //If playCompleteSound local storage variable is set to trun then play the completed sound
+  const playCompletedSound = localStorage.getItem("playCompleteSound");
+
+  if (playCompletedSound) {
+    localStorage.removeItem("playCompleteSound");
+    sound.play();
+  }
 });
 
 function getTasks() {
   //using template literal to grab user id from userObject authentication cookie information
   let userObject = getUserObject();
-  $.get(`/api/userTasks/${userObject.userId}`, function (data) {
-    // console.log(data);
-    let userCompletedCount = 0;
-    let totalCount = 0;
+  $.get(`/api/userTasks/${userObject.userId}`,
+
+    function (data) {
+      // console.log(data);
+      let userCompletedCount = 0;
+      let totalCount = 0;
+      console.log(data);
 
 
-    //iterating through all rows, if completed, adds to completed count
-    for (var i = 0; i < data.length; i++) {
+      //iterating through all rows, if completed, adds to completed count
+      for (var i = 0; i < data.length; i++) {
 
-      if (data[i].completed) {
-        userCompletedCount += 1;
+        if (data[i].completed) {
+          userCompletedCount += 1;
+        }
+        totalCount++;
       }
-      totalCount++;
-    }
 
 
-    //Divides total tasks for user by tasks the user has completed, then rounds to whole number
-    currentProgress = Math.round((userCompletedCount / totalCount) * 100);
+      //Divides total tasks for user by tasks the user has completed, then rounds to whole number
+      currentProgress = Math.round((userCompletedCount / totalCount) * 100);
 
-    // console.log(currentProgress);
-    // console.log(totalCount);
-    // console.log(userCompletedCount);
-    updateProgressBar();
-  });
+      // console.log(currentProgress);
+      // console.log(totalCount);
+      // console.log(userCompletedCount);
+      updateProgressBar();
+    });
 }
 
 
-$(document).on("click", ".complete", function () {
+$(document).on("click", ".complete", function (event) {
   // call the database update to complete
 
   //userTaskId is connected to data id of button
@@ -67,32 +86,52 @@ $(document).on("click", ".complete", function () {
     data: updatedUserTask
   })
     .then(function () {
-      //Update the progress bar
-      updateProgressBar();
 
+      //Card associated with button
+      const associatedCard = $(event.target).data("associated-card");
 
-      let playPromise = sound.play();
+      $(`#${associatedCard}`).hide("slow", function () {
+        //Update the progress bar
+        updateProgressBar();
 
-      if (playPromise !== undefined) {
-        playPromise.then(_ => {
-          //allows succesful click song to finish before advancing
-          setTimeout(location.reload.bind(location), 4000);
-        })
-          .catch(error => {
-            // if error, skip music wait time
-            location.reload();
-          });
-      }
+        //Set local storage variable to let page know to play sound on refresh
+        localStorage.setItem("playCompleteSound", 1);
 
-
+        //Reload the page
+        location.reload();
+      });
     });
 });
 
 function updateProgressBar() {
+
   $("#dynamic")
     .css("width", currentProgress + "%")
     .attr("aria-valuenow", currentProgress)
     .text(currentProgress + "%");
+
+  // $(".ldBar")
+  //   .attr("data-value", currentProgress);
 }
+
+function populateWeek() {
+
+  if (Date.today().is().sunday()) {
+    $("#weekInfo")
+      .append(currentWeekIfSunday);
+
+  } else {
+    $("#weekInfo")
+      .append(currentWeek);
+  }
+}
+
+
+console.log(currentWeek);
+
+
+
+
+
 
 

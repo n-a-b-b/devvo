@@ -54,7 +54,9 @@ module.exports = function (app) {
   app.get("/successboard", function (req, res) {
     res.render("successBoard");
   });
-
+  app.get("/email", function (req, res) {
+    res.render("email");
+  });
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");

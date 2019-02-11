@@ -1,0 +1,20 @@
+body {
+    background: url('../img/coding-background-image-9.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.taskCard {
+    height: 100%;
+  }
+  
+  .card-header {
+    min-height: 83px;
+  }
+  
+  .card-footer {
+    background-color: unset !important;
+    border-top: unset !important;
+  }

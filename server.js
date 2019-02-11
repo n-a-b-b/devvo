@@ -26,6 +26,7 @@ app.set("view engine", "handlebars");
 require("./routes/usersApiRoutes")(app);
 require("./routes/userTasksApiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+require("./routes/emailApiRoutes")(app);
 
 var syncOptions = { force: false };
 
