@@ -23,10 +23,10 @@ let usersCompletedArray = [];
     //how many complete per user?
     //log user name and whether complete or not 
     // console.log("data[l]UserId = "+ data[0].completed);
-    for(let k = 1; k<=currentNumUsers; k++){
-      console.log(k);
-      for(let l=0; l<=data.length; l++){
-        console.log(data[l].UserId);
+    for(let k = 0; k<=currentNumUsers; k++){
+      console.log("k="+k);
+      for(let l=0; l<=data.length-1; l++){
+        console.log("l="+l);
         if(data[l].UserId === k && data[l].completed === true){
           usersCompletedArray[k]++;
         }
