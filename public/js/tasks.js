@@ -4,9 +4,9 @@ const sound = document.createElement("audio");
 const firstWeekday = Date.today().last().sunday().toString("dddd, MMMM d");
 const lastWeekday = Date.last().saturday().add(7).day().toString("dddd, MMMM d");
 const currentWeek = ` ${firstWeekday} - ${lastWeekday}`;
+const currentWeekIfSunday = ` ${Date.today().toString("dddd, MMMM d")} - ${lastWeekday}`;
 
 //Completed audio clip playback
-
 
 sound.src = "/audio/devoyeah.mp3";
 sound.volume = 1;
@@ -111,9 +111,17 @@ function updateProgressBar() {
 }
 
 function populateWeek() {
-  $("#weekInfo")
-    .append(currentWeek);
+
+  if (Date.today().is().sunday()) {
+    $("#weekInfo")
+      .append(currentWeekIfSunday);
+
+  } else {
+    $("#weekInfo")
+      .append(currentWeek);
+  }
 }
+
 
 console.log(currentWeek);
 
