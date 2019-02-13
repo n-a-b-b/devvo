@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         "id", 
         "name",
         [sequelize.literal("(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)"), "completedTaskCount"],
-        [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1 AND updatedAt < )`), "yesterdayTaskCount"],
+        [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1 AND updatedAt > DATE_ADD(CURDATE(), INTERVAL -5 DAY))`), "yesterdayTaskCount"],
         [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)`), "twoDaysAgoTaskCount"],
         [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)`), "threeDaysAgoCount"],
       ],
