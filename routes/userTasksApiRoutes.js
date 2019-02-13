@@ -1,5 +1,6 @@
 var db = require("../models");
 
+
 module.exports = function (app) {
   //Find all user tasks for the current logged in user
   //Also do left join to retrieve the corresponding task from Tasks table
@@ -15,6 +16,15 @@ module.exports = function (app) {
     });
   });
  
+  app.get("/api/userTasks/top5", function (req, res) {
+    console.log("----- user tasks -------");
+
+
+    db.User.getTopFive().then(function (tasks) {
+      res.json(tasks);
+    });
+  });
+
   app.get("/api/userTasks/:id", function (req, res) {
     console.log("----- user tasks -------");
     db.UserTask.findAll({ 
@@ -26,6 +36,8 @@ module.exports = function (app) {
       res.json(tasks);
     });
   });
+
+  
 
   // Create a user task for a specific user id
   app.post("/api/userTasks/", function (req, res) {

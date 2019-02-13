@@ -16,6 +16,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
 
+    Task.hasMany(models.UserTask);
+
     //Insert the task seed data
     Task.sync().then(() => {
       Task.bulkCreate(taskSeeds, {

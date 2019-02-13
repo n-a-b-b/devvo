@@ -11,5 +11,21 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
+  User.getTopFive = function(){
+    const currentDate = new Date();
+
+    return User.findAll({
+      attributes: [
+        "id", 
+        "name",
+        [sequelize.literal("(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)"), "completedTaskCount"],
+        [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1 AND updatedAt < )`), "yesterdayTaskCount"],
+        [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)`), "twoDaysAgoTaskCount"],
+        [sequelize.literal(`(SELECT COUNT(*) FROM UserTasks WHERE UserTasks.UserId = User.id AND UserTasks.Completed = 1)`), "threeDaysAgoCount"],
+      ],
+      order: [[sequelize.literal("completedTaskCount"), "DESC"]],
+      limit: 5
+    });
+  };
   return User;
 };
